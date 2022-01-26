@@ -1,3 +1,7 @@
 <resources>
     <string name="app_name">Einkaufsliste_App</string>
+
+    <string name="button_Hinzufügen">Bestätigen</string>    //L:Buttonbeschriftung Bestätigung Sucheingabe
+    <string name="editText_Suche">Produktname eingeben</string> //L:Suchfeld_Hinweis für Produkte
+
 </resources>
