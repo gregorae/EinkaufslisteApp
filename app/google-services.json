@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "778789222616",
+    "project_id": "einkaufsliste-app-c79f5",
+    "storage_bucket": "einkaufsliste-app-c79f5.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:778789222616:android:4083d5f22d159e2560ffad",
+        "android_client_info": {
+          "package_name": "de.codeyourapp.einkaufsliste_app"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "778789222616-sufn2kc4ss9me5q4hj9926oa7lcfk8oh.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyARZ_vGI9ssEAoPn2Op0SHVnltDMLYsG-U"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "778789222616-sufn2kc4ss9me5q4hj9926oa7lcfk8oh.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
