@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="-21dp"
+        android:background="@color/white"
+        android:padding="20dp">
+
+
+        <TextView
+            android:id="@+id/Name_Listview"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="70dp"
+            android:text="Simon"
+            android:textColor="@color/black"
+            android:textSize="30dp"></TextView>
+    </RelativeLayout>
+
+    <Button
+        android:id="@+id/Color_Listview"
+        android:layout_width="69dp"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:padding="25dp">
+
+    </Button>
+
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:src="@drawable/ic_baseline_menu_24">
+
+    </ImageView>
+</RelativeLayout>

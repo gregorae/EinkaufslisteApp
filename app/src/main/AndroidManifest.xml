@@ -10,6 +10,9 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Einkaufsliste_App">
         <activity
+            android:name="Person.PersonActivity"
+            android:exported="false" />
+        <activity
             android:name=".MainActivity"
             android:exported="true">
             <intent-filter>
