@@ -1,47 +1,41 @@
 package Person;
 
+import android.os.Bundle;
+import android.view.View;
+import android.widget.Button;
+import android.widget.EditText;
+import android.widget.Toast;
+
 import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import android.graphics.Color;
-import android.graphics.drawable.ColorDrawable;
-import android.graphics.drawable.GradientDrawable;
-import android.os.Bundle;
-import android.view.View;
-import android.widget.ArrayAdapter;
-import android.widget.Button;
-import android.widget.EditText;
-import android.widget.ImageView;
-import android.widget.ListView;
-import android.widget.Toast;
-
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
-import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+
 import java.util.ArrayList;
 
 import de.codeyourapp.einkaufsliste_app.R;
 import yuku.ambilwarna.AmbilWarnaDialog;
 
-public class PersonActivity extends AppCompatActivity {
+public class PersonActivity extends AppCompatActivity implements PersonAdapter.PersonListener {
 
     // Variablen
     private AlertDialog.Builder dialogBuilder;
     private AlertDialog dialog;
     private EditText person_name;
+    String key =null;
     private Button save_person, cancel_person, delete_person, choose_color_person;
     private int Default_Color;
     private FloatingActionButton add_person;
+
 
     // Datenbank
     DatabaseReference databaseReference;
@@ -67,6 +61,8 @@ public class PersonActivity extends AppCompatActivity {
         });
         // Methode zum dauerhaften aktualisieren der Data wird aufgerufen
         retrieve_firebase_data();
+        //setup recycler view
+;
     }
 
 
@@ -175,7 +171,7 @@ public class PersonActivity extends AppCompatActivity {
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
 
         // Neuer Person Adapter wird erstellt
-        personAdapter = new PersonAdapter(this,list);
+        personAdapter = new PersonAdapter(this,list, this);
         recyclerView.setAdapter(personAdapter);
 
 
@@ -189,7 +185,9 @@ public class PersonActivity extends AppCompatActivity {
                 for (DataSnapshot dataSnapshot : snapshot.getChildren())
                 {
                     Person person = dataSnapshot.getValue(Person.class);
+                    person.setKey(dataSnapshot.getKey());
                     list.add(person);
+                    key = snapshot.getKey();
                 }
                 personAdapter.notifyDataSetChanged();
             }
@@ -199,5 +197,16 @@ public class PersonActivity extends AppCompatActivity {
 
             }
         });
+    }
+
+    @Override
+    public void personListener(int position) {
+        Person per = list.get(position);
+        list.get(position);
+        key = per.getKey();
+        Toast.makeText(this, "Person was generated" + position + key, Toast.LENGTH_SHORT).show();
+        //Intent intent = new Intent(this, NewActivity.java);
+        databaseReference = FirebaseDatabase.getInstance().getReference("Person/" + key);
+        databaseReference.removeValue();
     }
 }

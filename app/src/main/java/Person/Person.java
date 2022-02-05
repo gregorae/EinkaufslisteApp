@@ -1,9 +1,11 @@
 package Person;
 
-import java.util.Locale;
+import com.google.firebase.database.Exclude;
 
 // Klasse Person
 public class Person {
+    @Exclude
+    private String key;
     private String name;
     private String color;
     private String short_name;
@@ -41,5 +43,14 @@ public class Person {
 
     public void setColor(String color) {
         this.color = color;
+    }
+    public String getKey()
+    {
+        return key;
+    }
+
+    public void setKey(String key)
+    {
+        this.key = key;
     }
 }

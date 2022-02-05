@@ -1,11 +1,11 @@
 package de.codeyourapp.einkaufsliste_app;
 
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+
+import androidx.appcompat.app.AppCompatActivity;
 
 import Person.PersonActivity;
 
@@ -29,5 +29,6 @@ public class MainActivity extends AppCompatActivity {
     private void openPersonActivity() {
         Intent intent = new Intent(this, PersonActivity.class);
         startActivity(intent);
+
     }
 }
