@@ -3,6 +3,10 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="..\:/AndroidStudioProjects/EinkaufslisteApp/app/src/main/res/drawable/border_button.xml" value="0.3251282051282051" />
+        <entry key="..\:/AndroidStudioProjects/EinkaufslisteApp/app/src/main/res/layout/activity_main.xml" value="0.9" />
+        <entry key="..\:/AndroidStudioProjects/EinkaufslisteApp/app/src/main/res/layout/list_items.xml" value="0.15273556231003038" />
+        <entry key="..\:/AndroidStudioProjects/EinkaufslisteApp/app/src/main/res/layout/row.xml" value="0.3229166666666667" />
         <entry key="..\:/Users/Gregor/AndroidStudioProjects/Einkaufsliste_App/app/src/main/res/drawable/ic_baseline_add_circle_24.xml" value="0.34974358974358977" />
         <entry key="..\:/Users/Gregor/AndroidStudioProjects/Einkaufsliste_App/app/src/main/res/layout/Person/activity_person.xml" value="0.1" />
         <entry key="..\:/Users/Gregor/AndroidStudioProjects/Einkaufsliste_App/app/src/main/res/layout/activity_main.xml" value="0.18" />

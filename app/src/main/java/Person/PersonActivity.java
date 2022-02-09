@@ -2,6 +2,7 @@ package Person;
 
 import android.os.Bundle;
 import android.view.View;
+import android.view.Window;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
@@ -49,6 +50,7 @@ public class PersonActivity extends AppCompatActivity implements PersonAdapter.P
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_person);
+
 
         // Beim klicken aus den Floating Button mit den Plus wird die Methode ausgerufen
         // die den Dialogfenster aufruft, wo man eine neuen Person erstellen kann

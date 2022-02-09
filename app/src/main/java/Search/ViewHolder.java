@@ -35,7 +35,8 @@ public class ViewHolder extends RecyclerView.ViewHolder{
     }
 
     public void setDetails(Context ctx, String title){
-        TextView mTitle = mview.findViewById(R.id.TV_Title);    //TextView der row.XML
+        TextView mTitle = mview.findViewById(R.id.TV_Title);//TextView der row.XML
+
         mTitle.setText(title); //Titel Produkt in Zeile eintragen
     }
 
