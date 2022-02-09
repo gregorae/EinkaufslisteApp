@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    app:cardBackgroundColor="#FFC107"
+    app:cardCornerRadius="5dp"
+    app:cardUseCompatPadding="true"
+    app:contentPadding="0dp">
+    <!--Inhalt einer Zeile der Liste RecyclerView Produktsuche-->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/TV_Title"
+            android:textColor="#000"
+            android:text="Title"
+            android:textSize="20dp"/>
+
+    </LinearLayout>
+
+
+</androidx.cardview.widget.CardView>
