@@ -2,7 +2,6 @@ package Person;
 
 import android.os.Bundle;
 import android.view.View;
-import android.view.Window;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
@@ -11,6 +10,7 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.ContextCompat;
+import androidx.recyclerview.widget.ItemTouchHelper;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -171,6 +171,7 @@ public class PersonActivity extends AppCompatActivity implements PersonAdapter.P
         //Kein Plan was das ist
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
+        new ItemTouchHelper(itemtouchHelperCallback).attachToRecyclerView(recyclerView);
 
         // Neuer Person Adapter wird erstellt
         personAdapter = new PersonAdapter(this,list, this);
@@ -200,6 +201,25 @@ public class PersonActivity extends AppCompatActivity implements PersonAdapter.P
             }
         });
     }
+
+    ItemTouchHelper.SimpleCallback itemtouchHelperCallback = new ItemTouchHelper.SimpleCallback(0,
+            ItemTouchHelper.RIGHT | ItemTouchHelper.LEFT) {
+        @Override
+        public boolean onMove(@NonNull RecyclerView recyclerView, @NonNull RecyclerView.ViewHolder viewHolder, @NonNull RecyclerView.ViewHolder target) {
+            return false;
+        }
+
+        @Override
+        public void onSwiped(@NonNull RecyclerView.ViewHolder viewHolder, int direction) {
+            Person per = list.get(viewHolder.getAdapterPosition());
+            list.get(viewHolder.getAdapterPosition());
+            key = per.getKey();
+            //Intent intent = new Intent(this, NewActivity.java);
+            databaseReference = FirebaseDatabase.getInstance().getReference("Person/" + key);
+            databaseReference.removeValue();
+            personAdapter.notifyDataSetChanged();
+        }
+    };
 
     @Override
     public void personListener(int position) {
