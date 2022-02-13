@@ -52,6 +52,7 @@ public class PersonAdapter extends RecyclerView.Adapter<PersonAdapter.MyViewHold
         return list.size();
     }
 
+
     public static class MyViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener{
         //Variablen werden angelegt
         TextView name;
@@ -69,9 +70,11 @@ public class PersonAdapter extends RecyclerView.Adapter<PersonAdapter.MyViewHold
             itemView.setOnClickListener(this);
         }
 
+
+
         @Override
         public void onClick(View v) {
-            personListener.personListener(getAdapterPosition());
+            //personListener.personListener(getAdapterPosition());
         }
     }
     public interface PersonListener{

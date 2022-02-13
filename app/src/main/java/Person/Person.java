@@ -19,7 +19,12 @@ public class Person {
     {
         this.name = name;
         this.color = color;
-        this.short_name = this.name.substring(0, 2).toUpperCase();
+        if(name.length()>2) {
+            this.short_name = this.name.substring(0, 2).toUpperCase();
+        }
+        else{
+            this.short_name = this.name.toUpperCase();
+        }
     }
 
     // Getter und Setter

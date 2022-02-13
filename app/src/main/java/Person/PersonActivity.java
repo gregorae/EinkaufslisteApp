@@ -1,16 +1,18 @@
 package Person;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
-import android.view.Window;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.ContextCompat;
+import androidx.recyclerview.widget.ItemTouchHelper;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -23,6 +25,7 @@ import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
 
+import de.codeyourapp.einkaufsliste_app.MainActivity;
 import de.codeyourapp.einkaufsliste_app.R;
 import yuku.ambilwarna.AmbilWarnaDialog;
 
@@ -36,6 +39,7 @@ public class PersonActivity extends AppCompatActivity implements PersonAdapter.P
     private Button save_person, cancel_person, delete_person, choose_color_person;
     private int Default_Color;
     private FloatingActionButton add_person;
+    private ImageView backButton;
 
 
     // Datenbank
@@ -59,6 +63,15 @@ public class PersonActivity extends AppCompatActivity implements PersonAdapter.P
             @Override
             public void onClick(View v) {
                 createNewPersonDialog();
+            }
+        });
+
+        backButton = findViewById(R.id.back_icon);
+        backButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(PersonActivity.this, MainActivity.class);
+                startActivity(intent);
             }
         });
         // Methode zum dauerhaften aktualisieren der Data wird aufgerufen
@@ -148,15 +161,19 @@ public class PersonActivity extends AppCompatActivity implements PersonAdapter.P
         String Person_name = person_name.getText().toString();
         String Color = Integer.toString(Default_Color);
         Person person = new Person(Person_name, Color);
-
-        // Daten werden hochgeladen
-        databaseReference.push().setValue(person).addOnSuccessListener(suc ->
-        {
-            Toast.makeText(this, "Person was generated", Toast.LENGTH_SHORT).show();
-        }).addOnFailureListener(er ->
-        {
-            Toast.makeText(this, "Error", Toast.LENGTH_SHORT).show();
-        });
+        if(Person_name.length()>0) {
+            // Daten werden hochgeladen
+            databaseReference.push().setValue(person).addOnSuccessListener(suc ->
+            {
+                Toast.makeText(this, "Person was generated", Toast.LENGTH_SHORT).show();
+            }).addOnFailureListener(er ->
+            {
+                Toast.makeText(this, "Error", Toast.LENGTH_SHORT).show();
+            });
+        }
+        else{
+            Toast.makeText(this, "Person needs minimum 1 letter", Toast.LENGTH_SHORT).show();
+        }
     }
 
 
@@ -171,6 +188,7 @@ public class PersonActivity extends AppCompatActivity implements PersonAdapter.P
         //Kein Plan was das ist
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
+        new ItemTouchHelper(itemtouchHelperCallback).attachToRecyclerView(recyclerView);
 
         // Neuer Person Adapter wird erstellt
         personAdapter = new PersonAdapter(this,list, this);
@@ -200,6 +218,25 @@ public class PersonActivity extends AppCompatActivity implements PersonAdapter.P
             }
         });
     }
+
+    ItemTouchHelper.SimpleCallback itemtouchHelperCallback = new ItemTouchHelper.SimpleCallback(0,
+            ItemTouchHelper.RIGHT | ItemTouchHelper.LEFT) {
+        @Override
+        public boolean onMove(@NonNull RecyclerView recyclerView, @NonNull RecyclerView.ViewHolder viewHolder, @NonNull RecyclerView.ViewHolder target) {
+            return false;
+        }
+
+        @Override
+        public void onSwiped(@NonNull RecyclerView.ViewHolder viewHolder, int direction) {
+            Person per = list.get(viewHolder.getAdapterPosition());
+            list.get(viewHolder.getAdapterPosition());
+            key = per.getKey();
+            //Intent intent = new Intent(this, NewActivity.java);
+            databaseReference = FirebaseDatabase.getInstance().getReference("Person/" + key);
+            databaseReference.removeValue();
+            personAdapter.notifyDataSetChanged();
+        }
+    };
 
     @Override
     public void personListener(int position) {
