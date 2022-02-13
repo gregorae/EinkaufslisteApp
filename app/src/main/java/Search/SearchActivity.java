@@ -17,6 +17,7 @@ import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.SearchView;
 import androidx.core.view.MenuItemCompat;
+import androidx.recyclerview.widget.ItemTouchHelper;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -62,6 +63,7 @@ public class SearchActivity extends AppCompatActivity {
         mDatabaseReference = mFirebaseDatabase.getReference("Produktdata"); //Wähle Datenbankzweig aus
 
         showProduktdata();  //Methode aufrufen bei onCreate()
+
 
         btnSea.setOnClickListener(new View.OnClickListener() {   //Button neues Produkt hinzufügen(Datenbank und Einkaufsliste)
             @Override
