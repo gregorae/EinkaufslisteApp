@@ -29,14 +29,14 @@ import de.codeyourapp.einkaufsliste_app.MainActivity;
 import de.codeyourapp.einkaufsliste_app.R;
 import yuku.ambilwarna.AmbilWarnaDialog;
 
-public class PersonActivity extends AppCompatActivity implements PersonAdapter.PersonListener {
+public class PersonActivity extends AppCompatActivity  {
 
     // Variablen
     private AlertDialog.Builder dialogBuilder;
     private AlertDialog dialog;
     private EditText person_name;
-    String key =null;
-    private Button save_person, cancel_person, delete_person, choose_color_person;
+    private String key =null;
+    private Button save_person, cancel_person, choose_color_person;
     private int Default_Color;
     private FloatingActionButton add_person;
     private ImageView backButton;
@@ -191,7 +191,7 @@ public class PersonActivity extends AppCompatActivity implements PersonAdapter.P
         new ItemTouchHelper(itemtouchHelperCallback).attachToRecyclerView(recyclerView);
 
         // Neuer Person Adapter wird erstellt
-        personAdapter = new PersonAdapter(this,list, this);
+        personAdapter = new PersonAdapter(this,list);
         recyclerView.setAdapter(personAdapter);
 
 
@@ -207,7 +207,7 @@ public class PersonActivity extends AppCompatActivity implements PersonAdapter.P
                     Person person = dataSnapshot.getValue(Person.class);
                     person.setKey(dataSnapshot.getKey());
                     list.add(person);
-                    key = snapshot.getKey();
+                    //key = snapshot.getKey(); unsicher ob das raus darf
                 }
                 personAdapter.notifyDataSetChanged();
             }
@@ -219,8 +219,10 @@ public class PersonActivity extends AppCompatActivity implements PersonAdapter.P
         });
     }
 
+    // Methode mit der man Personen löscht.
+    // wird durch ein swipe auf dem recycler view ausgelöst
     ItemTouchHelper.SimpleCallback itemtouchHelperCallback = new ItemTouchHelper.SimpleCallback(0,
-            ItemTouchHelper.RIGHT | ItemTouchHelper.LEFT) {
+            ItemTouchHelper.RIGHT | ItemTouchHelper.LEFT)  { // Löschen durch Links oder Rechts swipen
         @Override
         public boolean onMove(@NonNull RecyclerView recyclerView, @NonNull RecyclerView.ViewHolder viewHolder, @NonNull RecyclerView.ViewHolder target) {
             return false;
@@ -228,24 +230,10 @@ public class PersonActivity extends AppCompatActivity implements PersonAdapter.P
 
         @Override
         public void onSwiped(@NonNull RecyclerView.ViewHolder viewHolder, int direction) {
-            Person per = list.get(viewHolder.getAdapterPosition());
-            list.get(viewHolder.getAdapterPosition());
-            key = per.getKey();
-            //Intent intent = new Intent(this, NewActivity.java);
-            databaseReference = FirebaseDatabase.getInstance().getReference("Person/" + key);
-            databaseReference.removeValue();
-            personAdapter.notifyDataSetChanged();
+            Person per = list.get(viewHolder.getAdapterPosition());     //holt sich die Position des ausgewählen
+            key = per.getKey();     //key dieser person wird zwischengespeichert
+            databaseReference = FirebaseDatabase.getInstance().getReference("Person/" + key);   // Reference wird auf gewünschten Person gesetzt
+            databaseReference.removeValue();    // Diese Reference wird gelöscht
         }
     };
-
-    @Override
-    public void personListener(int position) {
-        Person per = list.get(position);
-        list.get(position);
-        key = per.getKey();
-        Toast.makeText(this, "Person was generated" + position + key, Toast.LENGTH_SHORT).show();
-        //Intent intent = new Intent(this, NewActivity.java);
-        databaseReference = FirebaseDatabase.getInstance().getReference("Person/" + key);
-        databaseReference.removeValue();
-    }
 }

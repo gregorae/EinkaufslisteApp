@@ -18,14 +18,12 @@ public class PersonAdapter extends RecyclerView.Adapter<PersonAdapter.MyViewHold
 
     Context context;
     ArrayList<Person> list;
-    private PersonListener mPersonListener;
 
 
 
-    public PersonAdapter(Context context, ArrayList<Person> personArrayList, PersonListener personListener) {
+    public PersonAdapter(Context context, ArrayList<Person> personArrayList) {
         this.context = context;
         list = personArrayList;
-        this.mPersonListener = personListener;
     }
 
 
@@ -35,7 +33,7 @@ public class PersonAdapter extends RecyclerView.Adapter<PersonAdapter.MyViewHold
     public MyViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         // neuen View erstellen
         View v = LayoutInflater.from(context).inflate(R.layout.person,parent,false);
-        return new MyViewHolder(v, mPersonListener);
+        return new MyViewHolder(v);
     }
 
     @Override
@@ -53,31 +51,17 @@ public class PersonAdapter extends RecyclerView.Adapter<PersonAdapter.MyViewHold
     }
 
 
-    public static class MyViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener{
+    public static class MyViewHolder extends RecyclerView.ViewHolder {
         //Variablen werden angelegt
         TextView name;
         Button color;
-        PersonListener personListener;
 
 
-        public MyViewHolder(@NonNull View itemView, PersonListener personListener) {
+        public MyViewHolder(@NonNull View itemView) {
             super(itemView);
             //Variablen werden der xml zugeordnet
             name = itemView.findViewById(R.id.Name_Listview);
             color = itemView.findViewById(R.id.Color_Listview);
-            this.personListener = personListener;
-
-            itemView.setOnClickListener(this);
         }
-
-
-
-        @Override
-        public void onClick(View v) {
-            //personListener.personListener(getAdapterPosition());
-        }
-    }
-    public interface PersonListener{
-        void personListener(int position);
     }
 }
