@@ -252,8 +252,8 @@ public class SearchActivity extends AppCompatActivity {
 
         @Override
         public void onSwiped(@NonNull RecyclerView.ViewHolder viewHolder, int direction) {
-            String currentTitle = firebaseRecyclerAdapter.getItem(direction).getTitle();
-            String currentSearch = firebaseRecyclerAdapter.getItem(direction).getSearch();
+            String currentTitle = firebaseRecyclerAdapter.getItem(viewHolder.getAdapterPosition()).getTitle();
+            String currentSearch = firebaseRecyclerAdapter.getItem(viewHolder.getAdapterPosition()).getSearch();
 
             showDeleteDataDialog(currentTitle,currentSearch);
         }

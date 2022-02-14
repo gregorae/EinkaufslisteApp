@@ -113,6 +113,5 @@ public class MainActivity extends AppCompatActivity {
 
         private void setUserInfo() {
         usersList.add(new DataModel("TI", "Banane",5, "Stk."));
-
     }
 }
