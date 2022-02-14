@@ -24,14 +24,6 @@ public class ViewHolder extends RecyclerView.ViewHolder{
                 mClickListener.onItemClick(view, getAdapterPosition()); //ermittle angeklickte Position(gezeigtes item)
             }
         });
-        //Initialisiere OnClickListener für View (um Produkt aus Suchvorschläge zu löschen)
-        itemView.setOnLongClickListener(new View.OnLongClickListener() {
-            @Override
-            public boolean onLongClick(View view) {
-                mClickListener.onItemLongClick(view, getAdapterPosition());//ermittle angeklickte Position(gezeigtes item)
-                return false;
-            }
-        });
     }
 
     public void setDetails(Context ctx, String title){
@@ -44,7 +36,7 @@ public class ViewHolder extends RecyclerView.ViewHolder{
 
     public  interface ClickListener {   //Interface für Click-Events initialisieren
         void onItemClick(View view, int position);
-        void onItemLongClick(View view, int position);
+       // void onItemLongClick(View view, int position);
     }
     //Initialisiere allgemeinen ClickListener
     public void setOnClickListener(ViewHolder.ClickListener clickListener){

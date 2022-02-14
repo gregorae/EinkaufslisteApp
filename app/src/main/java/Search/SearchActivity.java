@@ -30,6 +30,7 @@ import com.firebase.ui.database.FirebaseRecyclerAdapter;
 import com.firebase.ui.database.FirebaseRecyclerOptions;
 import com.google.firebase.database.ValueEventListener;
 
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.Locale;
 
@@ -142,7 +143,9 @@ public class SearchActivity extends AppCompatActivity {
     }
 
     private void showProduktdata(){
-        options = new FirebaseRecyclerOptions.Builder<Produkt>().setQuery(mDatabaseReference,Produkt.class).build();    //Zeiger der durch Datenbank bewegt wird
+        options = new FirebaseRecyclerOptions.Builder<Produkt>().setQuery(mDatabaseReference,Produkt.class).build();//Zeiger der durch Datenbank bewegt wird
+        new ItemTouchHelper(itHelperCallback).attachToRecyclerView(mRecyclerView);  //Per Swipe löschen Methode anlegen
+
         firebaseRecyclerAdapter = new FirebaseRecyclerAdapter<Produkt, ViewHolder>(options) {   //Adapter zwischen Zeiger Datenbank und Viewholder der RecycleViewListe
             @Override
             protected void onBindViewHolder(@NonNull ViewHolder holder, int i, @NonNull Produkt produkt) {
@@ -163,13 +166,6 @@ public class SearchActivity extends AppCompatActivity {
                         intent.putExtra("id",produkt);
                         startActivity(intent);
                     }
-                    @Override
-                    public void onItemLongClick(View view, int position) {
-                        String currentTitle = getItem(position).getTitle();
-                        String currentSearch = getItem(position).getSearch();
-                        //Konvertiere Datensätze der Itemposition in String und übergebe an Methode
-                        showDeleteDataDialog(currentTitle,currentSearch);
-                    }
                 });
                 return viewHolder;  //Gebe Viewholder bestehend aus ItemView zurück
             }
@@ -182,6 +178,7 @@ public class SearchActivity extends AppCompatActivity {
 
     private void firebaseSearch(String searchText){ //Methode bei Sucheingabe konvertiere weitergegebenen String in String searchText(einheitlich)
         String quary = searchText.toLowerCase();    //Konvertiere Sucheingabe in KleinBuchstaben
+        new ItemTouchHelper(itHelperCallback).attachToRecyclerView(mRecyclerView);  //Per Swipe löschen Methode anlegen
 
         Query firebaseSearchQuery = mDatabaseReference.orderByChild("search").startAt(quary).endAt(quary + "\uf8ff");   //Suche in DAtenzweig "search" von Produktdata
         options = new FirebaseRecyclerOptions.Builder<Produkt>().setQuery(firebaseSearchQuery,Produkt.class).build();   //Zeiger der durch Datenbank bewegt wird
@@ -205,14 +202,6 @@ public class SearchActivity extends AppCompatActivity {
                         Intent intent = new Intent(SearchActivity.this,MainActivity.class); //Zum Main_Bildschirm wechseln
                         intent.putExtra("id",produkt);
                         startActivity(intent);
-                    }
-
-                    @Override
-                    public void onItemLongClick(View view, int position) {
-                        String currentTitle = getItem(position).getTitle();
-                        String currentSearch = getItem(position).getSearch();
-
-                        showDeleteDataDialog(currentTitle,currentSearch);
                     }
                 });
                 return viewHolder;
@@ -251,4 +240,22 @@ public class SearchActivity extends AppCompatActivity {
         });
         return super.onCreateOptionsMenu(menu);
     }
+
+    //Methode um beim Swipen zu löschen
+    ItemTouchHelper.SimpleCallback itHelperCallback = new ItemTouchHelper.SimpleCallback(0,
+            ItemTouchHelper.RIGHT){
+
+        @Override
+        public boolean onMove(@NonNull RecyclerView recyclerView, @NonNull RecyclerView.ViewHolder viewHolder, @NonNull RecyclerView.ViewHolder target) {
+            return false;
+        }
+
+        @Override
+        public void onSwiped(@NonNull RecyclerView.ViewHolder viewHolder, int direction) {
+            String currentTitle = firebaseRecyclerAdapter.getItem(direction).getTitle();
+            String currentSearch = firebaseRecyclerAdapter.getItem(direction).getSearch();
+
+            showDeleteDataDialog(currentTitle,currentSearch);
+        }
+    };
 }
