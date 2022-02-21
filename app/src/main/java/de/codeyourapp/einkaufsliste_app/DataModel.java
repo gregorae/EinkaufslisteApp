@@ -5,7 +5,7 @@ public class DataModel {
     private String product_name;
     private String quantity;
     private String unit;
-    //private int settings;
+    //aaaprivate int settings;
 
 
     public DataModel(){}
