@@ -5,7 +5,8 @@ public class DataModel {
     private String product_name;
     private String quantity;
     private String unit;
-    //aaaprivate int settings;
+    private String key;
+    //private int settings;
 
 
     public DataModel(){}
@@ -15,9 +16,17 @@ public class DataModel {
         this.product_name = product_name;
         this.quantity = quantity;
         this.unit = unit;
+        this.key = key;
         //this.settings = settings;
     }
 
+    public String getKey() {
+        return key;
+    }
+
+    public void setKey(String key) {
+        this.key = key;
+    }
 
     public String getUserToken() {
         return user_token;

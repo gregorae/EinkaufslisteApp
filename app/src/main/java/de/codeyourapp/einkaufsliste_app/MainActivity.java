@@ -10,6 +10,7 @@ import android.widget.ImageButton;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.DefaultItemAnimator;
+import androidx.recyclerview.widget.ItemTouchHelper;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -34,6 +35,7 @@ public class MainActivity extends AppCompatActivity {
 
     private ArrayList<DataModel> usersList;
     private RecyclerView recyclerView;
+    private String key =null;
     Intent receivedIntent;
     FirebaseDatabase fbase = FirebaseDatabase.getInstance();
     DatabaseReference listDatabaseReference = fbase.getReference().child("Entry");
@@ -106,6 +108,7 @@ public class MainActivity extends AppCompatActivity {
         recyclerView.setLayoutManager(layoutManager);
         recyclerView.setItemAnimator(new DefaultItemAnimator());
         recyclerView.setAdapter(adapter);
+        new ItemTouchHelper(itemtouchHelperCallback).attachToRecyclerView(recyclerView);
     }
 
         /*private void setUserInfo() {
@@ -137,9 +140,8 @@ public class MainActivity extends AppCompatActivity {
 
                 for (DataSnapshot dataSnapshot : snapshot.getChildren()) {
                     DataModel model = dataSnapshot.getValue(DataModel.class);
-                    //model.setKey(dataSnapshot.getKey());
+                    model.setKey(dataSnapshot.getKey());
                     usersList.add(model);
-                    //key = snapshot.getKey(); unsicher ob das raus darf
                 }
                 adapter.notifyDataSetChanged();
             }
@@ -150,4 +152,19 @@ public class MainActivity extends AppCompatActivity {
             }
         });
     }
+    ItemTouchHelper.SimpleCallback itemtouchHelperCallback = new ItemTouchHelper.SimpleCallback(0,
+            ItemTouchHelper.RIGHT | ItemTouchHelper.LEFT)  { // Löschen durch Links oder Rechts swipen
+        @Override
+        public boolean onMove(@NonNull RecyclerView recyclerView, @NonNull RecyclerView.ViewHolder viewHolder, @NonNull RecyclerView.ViewHolder target) {
+            return false;
+        }
+
+        @Override
+        public void onSwiped(@NonNull RecyclerView.ViewHolder viewHolder, int direction) {
+            DataModel ent = usersList.get(viewHolder.getAdapterPosition());     //holt sich die Position des ausgewählen
+            key = ent.getKey();     //key dieser person wird zwischengespeichert
+            listDatabaseReference = FirebaseDatabase.getInstance().getReference("Entry/" + key);   // Reference wird auf gewünschten Person gesetzt
+            listDatabaseReference.removeValue();    // Diese Reference wird gelöscht
+        }
+    };
 }
