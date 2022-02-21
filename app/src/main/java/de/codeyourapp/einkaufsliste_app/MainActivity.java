@@ -3,34 +3,29 @@ package de.codeyourapp.einkaufsliste_app;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
-import android.view.ViewGroup;
+import android.view.Window;
 import android.widget.Button;
+import android.widget.ImageButton;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
-
-import Person.PersonActivity;
-import Search.Produkt;
-import Search.SearchActivity;
-import Search.ViewHolder;
-
-
 import androidx.recyclerview.widget.DefaultItemAnimator;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.firebase.ui.database.FirebaseRecyclerAdapter;
+import com.firebase.ui.database.FirebaseRecyclerOptions;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
 import java.util.HashMap;
 
-import android.view.Window;
-import android.widget.ImageButton;
-
-import com.firebase.ui.database.FirebaseRecyclerAdapter;
-import com.firebase.ui.database.FirebaseRecyclerOptions;
-import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.annotations.Nullable;
+import Person.PersonActivity;
+import Search.SearchActivity;
 
 
 public class MainActivity extends AppCompatActivity {
@@ -45,6 +40,7 @@ public class MainActivity extends AppCompatActivity {
     FirebaseRecyclerOptions<DataModel> options;
     FirebaseRecyclerAdapter<DataModel, recyclerAdapter.EntryViewHolder> firebaseRecyclerAdapter;
     LinearLayoutManager mLinearLayoutManager;
+    recyclerAdapter adapter;
 
 
     @Override
@@ -93,8 +89,9 @@ public class MainActivity extends AppCompatActivity {
                 startActivity(intent);
             }
         });
-        setUserInfo();
+        //setUserInfo();
         setAdapter();
+        retrieve_entry_data();
     }
 
     private void openPersonActivity() {
@@ -111,7 +108,46 @@ public class MainActivity extends AppCompatActivity {
         recyclerView.setAdapter(adapter);
     }
 
-        private void setUserInfo() {
+        /*private void setUserInfo() {
         usersList.add(new DataModel("TI", "Banane",5, "Stk."));
+
+    }*/
+    private void retrieve_entry_data() {
+
+        usersList = new ArrayList<>();
+        recyclerView = findViewById(R.id.recyclerView);
+        // Sucht die Daten aus Person Liste
+        listDatabaseReference = FirebaseDatabase.getInstance().getReference("Entry");
+        //Kein Plan was das ist
+        recyclerView.setHasFixedSize(true);
+        recyclerView.setLayoutManager(new LinearLayoutManager(this));
+        //new ItemTouchHelper(itemtouchHelperCallback).attachToRecyclerView(recyclerView);
+
+        // Neuer Person Adapter wird erstellt
+        adapter = new recyclerAdapter(usersList);
+        recyclerView.setAdapter(adapter);
+
+
+        // Daten werden in die Liste geladen
+        listDatabaseReference.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                // Liste muss gecleart werden, sonst werden die Daten doppelt angezeigt
+                usersList.clear();
+
+                for (DataSnapshot dataSnapshot : snapshot.getChildren()) {
+                    DataModel model = dataSnapshot.getValue(DataModel.class);
+                    //model.setKey(dataSnapshot.getKey());
+                    usersList.add(model);
+                    //key = snapshot.getKey(); unsicher ob das raus darf
+                }
+                adapter.notifyDataSetChanged();
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
     }
 }
