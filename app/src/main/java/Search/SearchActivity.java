@@ -30,7 +30,6 @@ import com.firebase.ui.database.FirebaseRecyclerAdapter;
 import com.firebase.ui.database.FirebaseRecyclerOptions;
 import com.google.firebase.database.ValueEventListener;
 
-import java.util.Collections;
 import java.util.HashMap;
 import java.util.Locale;
 
@@ -92,54 +91,6 @@ public class SearchActivity extends AppCompatActivity {
                 }
             }
         });
-    }
-
-    private void showDeleteDataDialog(String currentTitle, String currentSearch) {  //Produkt soll gelöscht werden
-        AlertDialog.Builder builder = new AlertDialog.Builder(SearchActivity.this); //Baue AlertDialog auf
-        builder.setTitle("Löschen");
-        builder.setMessage("Dieses Produkt aus Vorschläge löschen?");
-        builder.setPositiveButton("Bestätigen", new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialog, int which) {
-                Query mQuery = mDatabaseReference.orderByChild("title").equalTo(currentTitle);  //Suche betroffenes Produkt in Datenbank
-                mQuery.addListenerForSingleValueEvent(new ValueEventListener() {
-                    @Override
-                    public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                        for(DataSnapshot ds : dataSnapshot.getChildren()){  //für alle entsprechenden Datensätze in Realtime Database
-                            ds.getRef().removeValue();  //entferne/lösche Datensatz aus Datenbank
-                            Toast.makeText(SearchActivity.this, "Produkt erfolgreich aus Vorschläge gelöscht", Toast.LENGTH_SHORT).show();
-                        }
-                    }
-
-                    @Override
-                    public void onCancelled(@NonNull DatabaseError error) {
-                        Toast.makeText(SearchActivity.this, "Fehler", Toast.LENGTH_SHORT).show();
-                    }
-                });
-                Query nQuery = mDatabaseReference.orderByChild("search").equalTo(currentSearch);    //Gleiches für UNtergruppe Search
-                nQuery.addListenerForSingleValueEvent(new ValueEventListener() {
-                    @Override
-                    public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                        for(DataSnapshot ds : dataSnapshot.getChildren()){
-                            ds.getRef().removeValue();
-                            Toast.makeText(SearchActivity.this, "Produkt erfolgreich aus Vorschläge gelöscht", Toast.LENGTH_SHORT).show();
-                        }
-                    }
-
-                    @Override
-                    public void onCancelled(@NonNull DatabaseError error) {
-                        Toast.makeText(SearchActivity.this, "Fehler", Toast.LENGTH_SHORT).show();
-                    }
-                });
-            }
-        });
-        builder.setNegativeButton("Abbrechen", new DialogInterface.OnClickListener() {  //Alert-Dialog schließen und nicht löschen
-            @Override
-            public void onClick(DialogInterface dialog, int which) {
-                Toast.makeText(SearchActivity.this, "Löschen abgebrochen", Toast.LENGTH_SHORT).show();
-            }
-        });
-        builder.create().show();        //Alertdialog kreieren und auf Bildschirm zeigen
     }
 
     private void showProduktdata(){
@@ -204,6 +155,7 @@ public class SearchActivity extends AppCompatActivity {
                         startActivity(intent);
                     }
                 });
+
                 return viewHolder;
             }
         };
@@ -254,8 +206,37 @@ public class SearchActivity extends AppCompatActivity {
         public void onSwiped(@NonNull RecyclerView.ViewHolder viewHolder, int direction) {
             String currentTitle = firebaseRecyclerAdapter.getItem(viewHolder.getAdapterPosition()).getTitle();
             String currentSearch = firebaseRecyclerAdapter.getItem(viewHolder.getAdapterPosition()).getSearch();
+            Query mQuery = mDatabaseReference.orderByChild("title").equalTo(currentTitle);  //Suche betroffenes Produkt in Datenbank
+            mQuery.addListenerForSingleValueEvent(new ValueEventListener() {
+                @Override
+                public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                    for(DataSnapshot ds : dataSnapshot.getChildren()){  //für alle entsprechenden Datensätze in Realtime Database
+                        ds.getRef().removeValue();  //entferne/lösche Datensatz aus Datenbank
+                        Toast.makeText(SearchActivity.this, "Produkt erfolgreich aus Vorschläge gelöscht", Toast.LENGTH_SHORT).show();
+                    }
+                }
 
-            showDeleteDataDialog(currentTitle,currentSearch);
+                @Override
+                public void onCancelled(@NonNull DatabaseError error) {
+                    Toast.makeText(SearchActivity.this, "Fehler", Toast.LENGTH_SHORT).show();
+                }
+            });
+            Query nQuery = mDatabaseReference.orderByChild("search").equalTo(currentSearch);    //Gleiches für UNtergruppe Search
+            nQuery.addListenerForSingleValueEvent(new ValueEventListener() {
+                @Override
+                public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                    for(DataSnapshot ds : dataSnapshot.getChildren()){
+                        ds.getRef().removeValue();
+                        Toast.makeText(SearchActivity.this, "Produkt erfolgreich aus Vorschläge gelöscht", Toast.LENGTH_SHORT).show();
+                    }
+                }
+
+                @Override
+                public void onCancelled(@NonNull DatabaseError error) {
+                    Toast.makeText(SearchActivity.this, "Fehler", Toast.LENGTH_SHORT).show();
+                }
+            });
+
         }
     };
 }

@@ -2,10 +2,14 @@ package de.codeyourapp.einkaufsliste_app;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.View;
 import android.view.Window;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ImageButton;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -29,9 +33,11 @@ import Person.PersonActivity;
 import Search.SearchActivity;
 
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity implements MainInterface{
     private ImageButton person_link;
     private Button btnSearch;
+    private EditText notice;
+    private EditText quantity;
 
     private ArrayList<DataModel> usersList;
     private RecyclerView recyclerView;
@@ -58,10 +64,11 @@ public class MainActivity extends AppCompatActivity {
 
         btnSearch = findViewById(R.id.btnsearch);
         person_link = findViewById(R.id.person_link);
+        notice = findViewById(R.id.tv_notice);
+        quantity = findViewById(R.id.tv_quantity);
 
         recyclerView = findViewById(R.id.recyclerView);
         usersList = new ArrayList<>();
-
 
         //Übergebenes Produkt aus Suchfunkton in Listendatenbank anlegen
         receivedIntent = getIntent();
@@ -101,9 +108,8 @@ public class MainActivity extends AppCompatActivity {
         startActivity(intent);
 
     }
-
     private void setAdapter() {
-        recyclerAdapter adapter = new recyclerAdapter(usersList);
+        recyclerAdapter adapter = new recyclerAdapter(usersList, this);
         RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(getApplicationContext());
         recyclerView.setLayoutManager(layoutManager);
         recyclerView.setItemAnimator(new DefaultItemAnimator());
@@ -111,10 +117,6 @@ public class MainActivity extends AppCompatActivity {
         new ItemTouchHelper(itemtouchHelperCallback).attachToRecyclerView(recyclerView);
     }
 
-        /*private void setUserInfo() {
-        usersList.add(new DataModel("TI", "Banane",5, "Stk."));
-
-    }*/
     private void retrieve_entry_data() {
 
         usersList = new ArrayList<>();
@@ -127,7 +129,7 @@ public class MainActivity extends AppCompatActivity {
         //new ItemTouchHelper(itemtouchHelperCallback).attachToRecyclerView(recyclerView);
 
         // Neuer Person Adapter wird erstellt
-        adapter = new recyclerAdapter(usersList);
+        adapter = new recyclerAdapter(this.usersList,this);
         recyclerView.setAdapter(adapter);
 
 
@@ -167,4 +169,10 @@ public class MainActivity extends AppCompatActivity {
             listDatabaseReference.removeValue();    // Diese Reference wird gelöscht
         }
     };
+
+    @Override
+    public void onItemClick(int position) {
+        Intent intent = new Intent(this,Configuration_Activity.class);
+        startActivity(intent);
+    }
 }

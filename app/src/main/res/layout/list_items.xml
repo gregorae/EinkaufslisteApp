@@ -17,58 +17,66 @@
             android:layout_width="40dp"
             android:layout_height="wrap_content"
             android:autoText="false"
-            android:elegantTextHeight="false"
-            android:freezesText="false"
-            android:maxLines="1"
-            android:paddingLeft="1dp"
+            android:paddingStart="1dp"
             android:paddingRight="1dp"
             android:paddingBottom="5dp"
             android:text="US"
             android:textAlignment="center"
             android:textAllCaps="true"
-            android:textIsSelectable="false"
             android:textSize="14sp" />
 
         <TextView
             android:id="@+id/tv_product_name"
-            android:layout_width="190dp"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_alignBottom="@id/tv_quantity"
             android:layout_alignParentTop="true"
             android:layout_marginStart="5dp"
-            android:layout_marginTop="10dp"
             android:layout_toEndOf="@+id/userButton"
-            android:paddingBottom="5dp"
             android:text="Product Name"
+            android:gravity="center|center_vertical"
             android:textColor="@android:color/black"
             android:textSize="15sp" />
 
-        <TextView
+        <EditText
             android:id="@+id/tv_quantity"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentTop="true"
-            android:layout_marginTop="10dp"
             android:layout_marginEnd="5dp"
             android:layout_toStartOf="@+id/tv_unit"
-            android:paddingBottom="5dp"
-            android:text="Quantity"
-            android:textSize="15sp"
-            android:textColor="@android:color/black"/>
+            android:gravity="center_vertical"
+            android:hint="Menge"
+            android:inputType="numberDecimal"
+            android:textColor="@android:color/black"
+            android:textSize="15sp" />
 
         <TextView
             android:id="@+id/tv_unit"
-            android:layout_width="50dp"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_alignBottom="@id/tv_quantity"
             android:layout_alignParentTop="true"
-            android:layout_marginTop="10dp"
+            android:layout_alignParentEnd="true"
             android:layout_marginEnd="5dp"
-            android:layout_toStartOf="@+id/IB_settings"
-            android:paddingBottom="5dp"
-            android:text="Unit"
-            android:textSize="15sp"
-            android:textColor="@android:color/black"/>
+            android:gravity="center|center_vertical"
+            android:hint="Einheit"
+            android:textColor="@android:color/black"
+            android:textSize="15sp" />
 
-        <ImageButton
+        <EditText
+            android:id="@+id/tv_notice"
+            android:layout_width="150dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="5dp"
+            android:layout_marginEnd="5dp"
+            android:layout_toLeftOf="@id/tv_quantity"
+            android:gravity="center"
+            android:hint="Notiz"
+            android:maxLength="12"
+            android:textSize="15sp" />
+
+        <!-- <ImageButton
             android:id="@+id/IB_settings"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -80,7 +88,7 @@
             android:minWidth="48dp"
             android:minHeight="32dp"
             android:src="@drawable/ic_edit"
-            tools:ignore="SpeakableTextPresentCheck,TouchTargetSizeCheck" />
+            tools:ignore="SpeakableTextPresentCheck,TouchTargetSizeCheck" /> -->
 
 
     </RelativeLayout>

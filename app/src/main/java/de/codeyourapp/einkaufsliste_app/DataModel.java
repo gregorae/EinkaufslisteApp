@@ -6,10 +6,19 @@ public class DataModel {
     private String quantity;
     private String unit;
     private String key;
+    private String notice;
     //private int settings;
 
 
     public DataModel(){}
+
+    public String getNotice() {
+        return notice;
+    }
+
+    public void setNotice(String notice) {
+        this.notice = notice;
+    }
 
     public DataModel(String user_token, String product_name, String quantity, String unit) {
         this.user_token = user_token;
@@ -17,6 +26,7 @@ public class DataModel {
         this.quantity = quantity;
         this.unit = unit;
         this.key = key;
+        this.notice = notice;
         //this.settings = settings;
     }
 

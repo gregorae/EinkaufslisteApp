@@ -10,6 +10,9 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Einkaufsliste_App">
         <activity
+            android:name=".Configuration_Activity"
+            android:exported="true" />
+        <activity
             android:name="Person.PersonActivity"
             android:exported="false" />
         <activity
@@ -21,7 +24,7 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name="Search.SearchActivity"></activity>
+        <activity android:name="Search.SearchActivity" />
     </application>
 
 </manifest>
