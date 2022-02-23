@@ -38,8 +38,8 @@ public class recyclerAdapter extends RecyclerView.Adapter<recyclerAdapter.EntryV
         View rootView;
         Button userCTXT;
         TextView pnameTXT;
-        EditText quantityTXT;
-        EditText noticeTXT;
+        TextView quantityTXT;
+        TextView noticeTXT;
         TextView unitTXT;
 
         public EntryViewHolder(@NonNull View itemView, MainInterface mainInterface){

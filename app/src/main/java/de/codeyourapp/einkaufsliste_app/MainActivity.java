@@ -9,6 +9,7 @@ import android.view.Window;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -36,8 +37,8 @@ import Search.SearchActivity;
 public class MainActivity extends AppCompatActivity implements MainInterface{
     private ImageButton person_link;
     private Button btnSearch;
-    private EditText notice;
-    private EditText quantity;
+    private TextView notice;
+    private TextView quantity;
 
     private ArrayList<DataModel> usersList;
     private RecyclerView recyclerView;
@@ -173,6 +174,8 @@ public class MainActivity extends AppCompatActivity implements MainInterface{
     @Override
     public void onItemClick(int position) {
         Intent intent = new Intent(this,Configuration_Activity.class);
+        String prodname = usersList.get(position).getProduct_name();
+        intent.putExtra("prod_name",prodname);
         startActivity(intent);
     }
 }
