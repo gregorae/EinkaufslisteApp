@@ -83,7 +83,6 @@ public class recyclerAdapter extends RecyclerView.Adapter<recyclerAdapter.EntryV
         holder.quantityTXT.setText(" " + dataModel.getQuantity());
         holder.noticeTXT.setText(""+dataModel.getNotice());
         holder.unitTXT.setText(dataModel.getUnit());
-        String id = dataModel.getNotice();
     }
 
     @Override
