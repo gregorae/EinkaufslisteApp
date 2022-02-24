@@ -2,15 +2,11 @@ package de.codeyourapp.einkaufsliste_app;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.text.Editable;
-import android.text.TextWatcher;
 import android.view.View;
 import android.view.Window;
 import android.widget.Button;
-import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -38,7 +34,7 @@ import Search.SearchActivity;
 
 public class MainActivity extends AppCompatActivity implements MainInterface{
     private ImageButton person_link;
-    private Button btnSearch;
+    private Button btnSearch, colorbutton;
     private TextView notice;
     private TextView quantity;
 
@@ -65,6 +61,7 @@ public class MainActivity extends AppCompatActivity implements MainInterface{
         mLinearLayoutManager.setReverseLayout(true);    //Ansicht Liste von oben nach unten
         mLinearLayoutManager.setStackFromEnd(true);
 
+        colorbutton = findViewById(R.id.userButton);
         btnSearch = findViewById(R.id.btnsearch);
         person_link = findViewById(R.id.person_link);
         notice = findViewById(R.id.tv_notice);
@@ -85,7 +82,8 @@ public class MainActivity extends AppCompatActivity implements MainInterface{
             listMap.put("unit","");
             listMap.put("quantity","");
             listMap.put("notice","");
-            listDatabaseReference.push().setValue(listMap);
+            listMap.put("color","-10354450");
+            listDatabaseReference.child(produkt).setValue(listMap); // neu kann auch wieder in push dann aber key
         }
 
         person_link.setOnClickListener(new View.OnClickListener() {
@@ -103,10 +101,12 @@ public class MainActivity extends AppCompatActivity implements MainInterface{
                 startActivity(intent);
             }
         });
+
         //setUserInfo();
         setAdapter();
         retrieve_entry_data();
     }
+
 
     private void openPersonActivity() {
         Intent intent = new Intent(this, PersonActivity.class);

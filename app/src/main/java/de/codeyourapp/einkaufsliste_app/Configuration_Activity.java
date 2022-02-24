@@ -26,7 +26,8 @@ public class Configuration_Activity extends AppCompatActivity {
     EditText conquant;
     EditText connote;
     DatabaseReference listref;
-    String item_short, name_short;
+    String item_short, name_short, color_button;
+    Button button;
 
     // String Array mit Inhalt des Dropdown-Menüs
     String[] items_dropdown = {"Liter (l)","Gramm (g)","Kilogramm (kg)","Stücke (Stk)","Packungen (Pkg)","Flaschen (Fl)","Kästen (Kasten)","Dosen (Dose)","Tuben (Tube)","Gläser (Glas)"};
@@ -50,6 +51,7 @@ public class Configuration_Activity extends AppCompatActivity {
         Button apply = findViewById(R.id.con_apply);
         TextView conproduct = findViewById(R.id.con_product);
 
+        button = (Button) findViewById(R.id.userButton);
         conquant = findViewById(R.id.edit_quantity);
         connote = findViewById(R.id.edit_notice);
         listref = FirebaseDatabase.getInstance().getReference("Entry").child(conproduct.getText().toString());
@@ -91,8 +93,22 @@ public class Configuration_Activity extends AppCompatActivity {
 
                     }
                 });
+                listref = FirebaseDatabase.getInstance().getReference("Person/" + name + "/color");
+                listref.addValueEventListener(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(@NonNull DataSnapshot snapshot) {
+                        color_button = snapshot.getValue().toString();
+                    }
+
+                    @Override
+                    public void onCancelled(@NonNull DatabaseError error) {
+
+                    }
+                });
             }
         });
+
+
 
 
 
@@ -100,12 +116,16 @@ public class Configuration_Activity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 changeActivity();
-                 String quantity = conquant.getText().toString();
+                String quantity = conquant.getText().toString();
                 String notice = connote.getText().toString();
                 String product_name = conproduct.getText().toString();
                 String user_token = name_short;
                 String unit = item_short;
-                updateData(user_token,product_name, quantity,unit,notice);
+                String color = color_button;
+                if (color == null){
+                    color = "-10354450";
+                }
+                updateData(user_token,product_name, quantity,unit,notice, color);
             }
         });
     }
@@ -131,9 +151,9 @@ public class Configuration_Activity extends AppCompatActivity {
         });
     }
 
-    private void updateData(String user_token,String product_name, String quantity,String unit, String notice){
+    private void updateData( String user_token, String product_name, String quantity, String unit, String notice, String color){
         listref = FirebaseDatabase.getInstance().getReference("Entry").child(product_name);
-        DataModel entry = new DataModel(user_token,product_name,quantity,unit,notice);
+        DataModel entry = new DataModel(user_token,product_name,quantity,unit,notice, color);
         listref.setValue(entry);
     }
 

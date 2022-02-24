@@ -1,7 +1,5 @@
 package de.codeyourapp.einkaufsliste_app;
 
-import java.util.Comparator;
-
 public class DataModel {
     private String user_token;
     private String product_name;
@@ -9,6 +7,7 @@ public class DataModel {
     private String unit;
     private String key;
     private String notice;
+    private String color;
     //private int settings;
 
 
@@ -20,7 +19,8 @@ public class DataModel {
         this.notice = notice;
     }
 
-    public DataModel(String user_token, String product_name, String quantity, String unit, String notice) {
+    public DataModel(String user_token, String product_name, String quantity, String unit, String notice, String color) {
+        this.color = color;
         this.user_token = user_token;
         this.product_name = product_name;
         this.quantity = quantity;
@@ -28,6 +28,15 @@ public class DataModel {
         this.key = key;
         this.notice = notice;
         //this.settings = settings;
+    }
+
+
+    public String getColor() {
+        return color;
+    }
+
+    public void setColor(String color) {
+        this.color = color;
     }
 
     public String getKey() {
