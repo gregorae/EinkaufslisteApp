@@ -108,6 +108,7 @@
         android:hint="Benutzer bearbeiten"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
+        app:startIconDrawable="@drawable/ic_baseline_person_24"
         app:layout_constraintTop_toBottomOf="@+id/TIL_notice">
 
         <AutoCompleteTextView

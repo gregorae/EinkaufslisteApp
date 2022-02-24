@@ -165,8 +165,8 @@ public class PersonActivity extends AppCompatActivity  {
         String Color = Integer.toString(Default_Color);
         Person person = new Person(Person_name, Color);
         if(Person_name.length()>0) {
-            // Daten werden hochgeladen
-            databaseReference.push().setValue(person).addOnSuccessListener(suc ->
+            // Daten werden hochgeladen und der Name wird als key benutzt
+            databaseReference.child(Person_name).setValue(person).addOnSuccessListener(suc ->
             {
                 Toast.makeText(this, "Person was generated", Toast.LENGTH_SHORT).show();
             }).addOnFailureListener(er ->
