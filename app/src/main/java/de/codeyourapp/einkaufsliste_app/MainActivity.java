@@ -75,6 +75,8 @@ public class MainActivity extends AppCompatActivity implements MainInterface{
         receivedIntent = getIntent();
         if (receivedIntent != null && receivedIntent.hasExtra("id")) {
             String produkt = receivedIntent.getStringExtra("id");
+            String quant = receivedIntent.getStringExtra("quant");
+            String notice = receivedIntent.getStringExtra("note");
             HashMap<String,String> listMap = new HashMap<>();    //Hashmap von Produktdata-Tweig in Datenbank
             listMap.put("product_name",produkt);    //Beteiligte Größen neuer Datensatz (Produkt)
             listMap.put("user_token","");

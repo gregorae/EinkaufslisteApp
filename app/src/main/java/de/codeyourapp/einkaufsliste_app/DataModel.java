@@ -12,15 +12,13 @@ public class DataModel {
 
     public DataModel(){}
 
-    public String getNotice() {
-        return notice;
-    }
+    public String getNotice() {return notice; }
 
     public void setNotice(String notice) {
         this.notice = notice;
     }
 
-    public DataModel(String user_token, String product_name, String quantity, String unit) {
+    public DataModel(String user_token, String product_name, String quantity, String unit, String notice) {
         this.user_token = user_token;
         this.product_name = product_name;
         this.quantity = quantity;
@@ -64,4 +62,6 @@ public class DataModel {
     public void setUnit(String unit) {
         this.unit = unit;
     }
+
+
 }
