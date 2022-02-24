@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">Einkaufsliste_App</string>
+    <string name="app_name">Produktsuche</string>
 
     <!--Strings Lukas-->
     <string name="btnsearch">Neues Produkt hinzufügen</string>

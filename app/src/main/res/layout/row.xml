@@ -19,7 +19,7 @@
             android:id="@+id/TV_Title"
             android:textColor="#000"
             android:text="Title"
-            android:textSize="25dp"/>
+            android:textSize="20sp"/>
 
     </LinearLayout>
 

@@ -9,6 +9,7 @@ import android.os.Bundle;
 import android.os.DropBoxManager;
 import android.renderscript.ScriptGroup;
 import android.view.View;
+import android.view.Window;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
@@ -31,8 +32,8 @@ public class Configuration_Activity extends AppCompatActivity {
     String item_short;
 
     // String Array mit Inhalt des Dropdown-Menüs
-    String[] items_dropdown = {"Liter (l)","Gramm (g)","Kilogramm (kg)"};
-    String[] items_dropdown_short = {"l","g","kg"};
+    String[] items_dropdown = {"Liter (l)","Gramm (g)","Kilogramm (kg)","Stücke (Stk)","Packungen (Pkg)","Flaschen (Fl)","Kästen (Kasten)","Dosen (Dose)","Tuben (Tube)","Gläser (Glas)"};
+    String[] items_dropdown_short = {"l","g","kg","Stk","Pkg","Fl","Kasten","Dosen","Tube","Glas"};
     AutoCompleteTextView actvUnit;
 
     ArrayAdapter<String> adapterItems;
@@ -41,6 +42,8 @@ public class Configuration_Activity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        requestWindowFeature(Window.FEATURE_NO_TITLE);
+        getSupportActionBar().hide();
         setContentView(R.layout.activity_configuration);
 
         Button apply = findViewById(R.id.con_apply);

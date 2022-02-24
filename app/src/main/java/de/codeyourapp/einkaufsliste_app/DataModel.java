@@ -1,5 +1,7 @@
 package de.codeyourapp.einkaufsliste_app;
 
+import java.util.Comparator;
+
 public class DataModel {
     private String user_token;
     private String product_name;
@@ -62,6 +64,5 @@ public class DataModel {
     public void setUnit(String unit) {
         this.unit = unit;
     }
-
 
 }

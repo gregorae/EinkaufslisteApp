@@ -28,6 +28,8 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.HashMap;
 
 import Person.PersonActivity;
@@ -111,6 +113,17 @@ public class MainActivity extends AppCompatActivity implements MainInterface{
         startActivity(intent);
 
     }
+
+    private void sortArrayList(){
+        Collections.sort(usersList, new Comparator<DataModel>() {
+            @Override
+            public int compare(DataModel o1, DataModel o2) {
+                return o1.getProduct_name().compareTo(o2.getProduct_name());
+            }
+        });
+        adapter.notifyDataSetChanged();
+    }
+
     private void setAdapter() {
         recyclerAdapter adapter = new recyclerAdapter(usersList, this);
         RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(getApplicationContext());
@@ -147,6 +160,7 @@ public class MainActivity extends AppCompatActivity implements MainInterface{
                     DataModel model = dataSnapshot.getValue(DataModel.class);
                     model.setKey(dataSnapshot.getKey());
                     usersList.add(model);
+                    sortArrayList();
                 }
                 adapter.notifyDataSetChanged();
             }
