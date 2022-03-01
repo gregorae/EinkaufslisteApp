@@ -27,17 +27,9 @@
         android:layout_width="69dp"
         android:layout_height="wrap_content"
         android:layout_alignParentLeft="true"
+        android:alpha="0.7"
         android:padding="25dp">
 
     </Button>
-
-    <ImageView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentRight="true"
-        android:src="@drawable/ic_baseline_menu_24">
-
-    </ImageView>
-
 
 </RelativeLayout>

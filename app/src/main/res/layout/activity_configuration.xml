@@ -10,18 +10,21 @@
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/textInputLayout"
         style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.ExposedDropdownMenu"
-        android:layout_width="wrap_content"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
         android:layout_marginTop="32dp"
         android:layout_marginEnd="24dp"
         android:hint="@string/select"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/con_product">
+        app:layout_constraintStart_toEndOf="@+id/TIL_quantity"
+        app:layout_constraintTop_toBottomOf="@+id/con_product"
+        app:startIconDrawable="@drawable/ic_baseline_balance_24">
 
         <AutoCompleteTextView
             android:id="@+id/actv_unit"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_height="150dp"
             android:layout_weight="1"
             android:inputType="none"
             android:text=" " />
@@ -39,18 +42,18 @@
         android:hint="Menge eingeben"
         app:endIconMode="clear_text"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/con_product">
+        app:layout_constraintTop_toBottomOf="@+id/con_product"
+        app:startIconDrawable="@drawable/ic_baseline_add_box_24">
 
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/edit_quantity"
-            android:layout_width="155dp"
-            android:layout_height="match_parent"
+            android:layout_width="150dp"
+            android:layout_height="150dp"
             android:layout_alignParentRight="true"
             android:hint=" "
             android:inputType="numberDecimal"
             android:minHeight="48dp" />
     </com.google.android.material.textfield.TextInputLayout>
-
 
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/TIL_notice"
@@ -58,21 +61,20 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="24dp"
-        android:layout_marginTop="64dp"
-        android:layout_marginEnd="24dp"
+        android:layout_marginTop="24dp"
         android:layout_weight="1"
         android:hint="Notiz eingeben"
-        app:endIconMode="clear_text"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
         app:counterEnabled="true"
         app:counterMaxLength="12"
-        app:layout_constraintTop_toBottomOf="@+id/TIL_quantity">
+        app:endIconMode="clear_text"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/TIL_quantity"
+        app:startIconDrawable="@drawable/ic_baseline_edit_note_24">
 
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/edit_notice"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_width="200dp"
+            android:layout_height="150dp"
             android:layout_alignParentRight="true"
             android:hint=" "
             android:inputType="textPersonName"
@@ -80,41 +82,24 @@
             android:minHeight="48dp" />
     </com.google.android.material.textfield.TextInputLayout>
 
-    <!--
-    <EditText
-        android:id="@+id/edit_notice"
-        android:layout_width="143dp"
-        android:layout_height="48dp"
-        android:layout_alignParentRight="true"
-        android:layout_marginTop="32dp"
-        android:ems="10"
-        android:hint="Notiz eingeben"
-        android:inputType="textPersonName"
-        android:maxLength="12"
-        app:layout_constraintTop_toBottomOf="@+id/textInputLayout"
-        tools:layout_editor_absoluteX="117dp" />
-
--->
-
-
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/TIL_person"
         style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.ExposedDropdownMenu"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
-        android:layout_marginTop="100dp"
-        android:layout_marginEnd="16dp"
+        android:layout_marginTop="24dp"
+        android:layout_marginEnd="24dp"
         android:hint="Benutzer bearbeiten"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:startIconDrawable="@drawable/ic_baseline_person_24"
-        app:layout_constraintTop_toBottomOf="@+id/TIL_notice">
+        app:layout_constraintStart_toEndOf="@+id/TIL_notice"
+        app:layout_constraintTop_toBottomOf="@+id/textInputLayout"
+        app:startIconDrawable="@drawable/ic_baseline_person_24">
 
         <AutoCompleteTextView
             android:id="@+id/actv_person"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_height="150dp"
             android:layout_weight="1"
             android:inputType="none"
             android:text=" " />
@@ -122,12 +107,16 @@
 
     <Button
         android:id="@+id/con_apply"
+        style="@style/Widget.MaterialComponents.Button.OutlinedButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
         android:layout_marginBottom="64dp"
-        android:text="Bestätigen"
+        android:drawableEnd="@drawable/ic_baseline_add_shopping_cart_24"
+        android:text="Speichern"
+        android:textAllCaps="false"
+        android:textSize="20sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
@@ -137,8 +126,11 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_centerHorizontal="true"
-        android:background="#4CAF50"
+        android:layout_marginTop="16dp"
+        android:background="#00FFFFFF"
+        android:fontFamily="@font/faster_one"
         android:gravity="center"
+        android:textColor="#6AB187"
         android:textSize="35sp"
         app:layout_constraintTop_toTopOf="parent"
         tools:layout_editor_absoluteX="0dp" />

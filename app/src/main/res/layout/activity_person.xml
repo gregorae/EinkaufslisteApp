@@ -18,25 +18,38 @@
         app:srcCompat="@drawable/ic_baseline_add_circle_24"
         tools:ignore="SpeakableTextPresentCheck" />
 
-    <include
-        android:id="@+id/header_bar"
-        layout="@layout/header_bar"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content">
-
-    </include>
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/person_list"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_below="@+id/header_bar"
+        android:layout_below="@id/tv_benutzer"
         android:layout_alignParentBottom="true"
-        android:layout_marginTop="0dp"
+        android:layout_marginTop="20dp"
         android:layout_marginBottom="0dp"
         tools:listitem="@layout/person">
 
     </androidx.recyclerview.widget.RecyclerView>
+
+    <TextView
+        android:id="@+id/tv_benutzer"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentEnd="true"
+        android:layout_marginStart="60dp"
+        android:layout_marginTop="16dp"
+        android:layout_toEndOf="@+id/back_icon"
+        android:fontFamily="@font/faster_one"
+        android:text="Benutzer"
+        android:textColor="#6AB187"
+        android:textSize="35sp" />
+
+    <ImageButton
+        android:id="@+id/back_icon"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:srcCompat="@drawable/ic_baseline_arrow_back_24"
+        tools:ignore="SpeakableTextPresentCheck" />
 
 
 </RelativeLayout>
