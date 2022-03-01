@@ -118,7 +118,7 @@ public class MainActivity extends AppCompatActivity implements MainInterface{
         Collections.sort(usersList, new Comparator<DataModel>() {
             @Override
             public int compare(DataModel o1, DataModel o2) {
-                return o1.getProduct_name().compareTo(o2.getProduct_name());
+                return o1.getColor().compareTo(o2.getColor());
             }
         });
         adapter.notifyDataSetChanged();
