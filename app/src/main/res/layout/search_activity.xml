@@ -11,7 +11,8 @@
         android:id="@+id/btnSea"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="@string/btnsearch" />
+        android:hint="@string/btnsearch"
+        android:textColorHint="@color/white"/>
 
     <!-- Liste für Produktsuche-->
     <androidx.recyclerview.widget.RecyclerView
