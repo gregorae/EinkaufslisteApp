@@ -139,7 +139,6 @@ public class Configuration_Activity extends AppCompatActivity {
                 for(DataSnapshot snapshot : datasnapshot.getChildren()) {
                     name = snapshot.child("name").getValue().toString();
                     personlist.add(name);
-
                 }
                 personadapter.notifyDataSetChanged();
             }

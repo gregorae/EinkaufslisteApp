@@ -78,9 +78,8 @@ public class PersonActivity extends AppCompatActivity  {
             }
         });
         // Methode zum dauerhaften aktualisieren der Data wird aufgerufen
-        retrieve_firebase_data();
+        retrieve_person_data();
         //setup recycler view
-;
     }
 
 
@@ -110,7 +109,7 @@ public class PersonActivity extends AppCompatActivity  {
 
 
         // Choose Color Button ruft einen Color Dialog Methode auf
-        Default_Color = ContextCompat.getColor(PersonActivity.this, R.color.design_default_color_primary);
+        Default_Color = ContextCompat.getColor(PersonActivity.this, R.color.purple_500);
         choose_color_person = (Button)  personPopupView.findViewById(R.id.choosecolor_person);
         choose_color_person.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -124,7 +123,7 @@ public class PersonActivity extends AppCompatActivity  {
             @Override
             public void onClick(View v) {
                 // Läd die eingegeben daten in die Firebase
-                insertPlayerData();
+                insertPersonData();
                 // schließt Dialog
                 dialog.dismiss();
             }
@@ -158,7 +157,7 @@ public class PersonActivity extends AppCompatActivity  {
 
 
     // Eingegebene Werte für die Person werden in Database hochgeladen
-    private void insertPlayerData() {
+    private void insertPersonData() {
 
         // Eine Person wird mit der Klasse Person angelegt
         String Person_name = person_name.getText().toString();
@@ -182,13 +181,12 @@ public class PersonActivity extends AppCompatActivity  {
 
 
     // Methode um die Firebase Daten in der Recycler View anzuzeigen
-    private void retrieve_firebase_data() {
+    private void retrieve_person_data() {
 
         list = new ArrayList<>();
         recyclerView = findViewById(R.id.person_list);
         // Sucht die Daten aus Person Liste
         databaseReference = FirebaseDatabase.getInstance().getReference("Person");
-        //Kein Plan was das ist
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         new ItemTouchHelper(itemtouchHelperCallback).attachToRecyclerView(recyclerView);
@@ -236,6 +234,25 @@ public class PersonActivity extends AppCompatActivity  {
             key = per.getKey();     //key dieser person wird zwischengespeichert
             databaseReference = FirebaseDatabase.getInstance().getReference("Person/" + key);   // Reference wird auf gewünschten Person gesetzt
             databaseReference.removeValue();    // Diese Reference wird gelöscht
+
+            databaseReference = FirebaseDatabase.getInstance().getReference().child("Entry");
+            databaseReference.addValueEventListener(new ValueEventListener() {
+                @Override
+                public void onDataChange(@NonNull DataSnapshot datasnapshot) {
+                    for(DataSnapshot snapshot : datasnapshot.getChildren()) {
+                        snapshot.child("userToken" + key.substring(0, 2).toUpperCase());
+                    }
+                }
+
+                @Override
+                public void onCancelled(@NonNull DatabaseError error) {
+
+                }
+            });
+
+
+
+
         }
     };
 }

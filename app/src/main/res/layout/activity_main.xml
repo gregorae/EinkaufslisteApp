@@ -68,6 +68,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/btnsearch"
         app:layout_constraintVertical_bias="1.0"
-        tools:listitem="@layout/list_items" />
+        tools:listitem="@layout/list_items"
+        />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

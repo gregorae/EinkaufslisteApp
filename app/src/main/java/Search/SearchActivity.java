@@ -69,7 +69,6 @@ public class SearchActivity extends AppCompatActivity {
                 SearchView searchView = (SearchView) findViewById(R.id.search);
                 String msearchview = searchView.getQuery().toString();  //Konvertiere Sucheingabe zu String und speichere
 
-                Toast.makeText(SearchActivity.this, "test2", Toast.LENGTH_SHORT).show();
                 if(msearchview.length() == 0){
                     Toast.makeText(SearchActivity.this, "Fehler, keine Eingabe die hinzugefügt werden kann", Toast.LENGTH_SHORT).show();
 
